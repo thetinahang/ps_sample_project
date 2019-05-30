@@ -1,0 +1,58 @@
+<h1>Schools#index -- District Name</h1>
+<h2>Welcome <%= @user.email %> <%= @user.id %>! </h2>
+
+<%= flash[:notice] %>
+
+<%= form_tag destroy_multiple_schools_path, method: :delete do %>
+	<table>
+		<thead>
+			<tr>
+				<th>CHECKBOX Header</th>
+				<th>School Name</th>
+				<th>School ID</th>
+				<th>Phone</th>
+				<th>Address</th>
+				<th>Zip</th>
+				<th>Kind</th>
+				<th>Principal Name</th>
+				<th>Principal Email</th>
+				<th>User</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @schools.each do |school| %>
+				<tr>
+					<td><%= check_box_tag 'school_ids[]', school.id, false %></td>
+					<th><%= school.school_name %></th>
+					<th><%= school.external_id %></th>
+					<th><%= school.phone %></th>
+					<th><%= school.address %></th>
+					<th><%= school.zip %></th>
+					<th><%= school.kind %></th>
+					<th><%= school.principal_name %></th>
+					<th><%= school.principal_email %></th>
+					<th><%= school.user_id%></th>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+	<%= submit_tag "Delete selected" %>
+<% end %>
+
+<div>
+	<h4> Import your school data here. </h4>
+	<%= form_tag import_schools_path, multipart: true do %>
+		<%= file_field_tag :file %>
+		<%= submit_tag "Import CSV" %>
+	<% end %>
+</div>
+
+<% if user_signed_in? %>
+  <li>
+  <%= link_to('Logout', destroy_user_session_path, method: :delete) %>        
+  </li>
+<% else %>
+  <li>
+  <%= link_to('Login', new_user_session_path) %>  
+  </li>
+<% end %>
