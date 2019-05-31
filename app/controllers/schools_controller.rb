@@ -8,12 +8,12 @@ class SchoolsController < ApplicationController
 
   def import
   	School.import(params[:file], current_user.id)
-  	redirect_to root_url, notice: "School Data imported!"
+  	redirect_to root_url, notice: "School data imported"
   end
 
   def destroy_multiple
     new_params = params.except[:school_ids]
     School.destroy(new_params)
-    redirect_to root_url, notice: "School Data deleted!"
+    redirect_to root_url, notice: "Successfully created schools"
   end
 end

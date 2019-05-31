@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 2019_05_30_185240) do
   end
 
   create_table "schools", force: :cascade do |t|
+    t.integer "user_id"
     t.string "school_name"
     t.integer "external_id"
     t.string "phone"
@@ -65,7 +66,7 @@ ActiveRecord::Schema.define(version: 2019_05_30_185240) do
     t.string "principal_email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id"
+    t.index ["user_id"], name: "index_schools_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
